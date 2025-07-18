@@ -7,26 +7,20 @@ SRCDIR = src
 INCDIR = inc
 OBJDIR = obj
 
-SOURCES = main.cpp \
+SRCS = main.cpp \
 		  Server.cpp \
 		  Client.cpp \
 		  Channel.cpp \
-		  Commands.cpp \
-		  Utils.cpp
+		  Commands.cpp
 
-OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
-HEADERS = $(INCDIR)/Server.hpp \
-		  $(INCDIR)/Client.hpp \
-		  $(INCDIR)/Channel.hpp \
-		  $(INCDIR)/Commands.hpp \
-		  $(INCDIR)/Utils.hpp
+OBJS = $(SRCS:%.cpp=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(HEADERS) | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR):

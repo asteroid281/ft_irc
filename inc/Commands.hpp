@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Commands.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunozdem < yunozdem@student.42istanbul.    +#+  +:+       +#+        */
+/*   By: apalaz <apalaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 00:00:00 by student           #+#    #+#             */
-/*   Updated: 2025/07/17 22:28:28 by yunozdem         ###   ########.fr       */
+/*   Updated: 2025/07/18 13:17:50 by apalaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,48 +56,41 @@ using std::string;
 class Server;
 class Client;
 
-class Commands {
-private:
-    Server* _server;
-    
-public:
-    Commands(Server* server);
-    ~Commands();
-    
-    void processCommand(Client* client, const string& command);
-    
-    // Authentication commands
-    void cmdPass(Client* client, const vector<string>& params);
-    void cmdNick(Client* client, const vector<string>& params);
-    void cmdUser(Client* client, const vector<string>& params);
-    
-    // Channel commands
-    void cmdJoin(Client* client, const vector<string>& params);
-    void cmdPart(Client* client, const vector<string>& params);
-    void cmdTopic(Client* client, const vector<string>& params);
-    void cmdNames(Client* client, const vector<string>& params);
-    void cmdList(Client* client, const vector<string>& params);
-    
-    // Communication commands
-    void cmdPrivmsg(Client* client, const vector<string>& params);
-    void cmdNotice(Client* client, const vector<string>& params);
-    
-    // Channel operator commands
-    void cmdKick(Client* client, const vector<string>& params);
-    void cmdInvite(Client* client, const vector<string>& params);
-    void cmdMode(Client* client, const vector<string>& params);
-    
-    // Server commands
-    void cmdPing(Client* client, const vector<string>& params);
-    void cmdPong(Client* client, const vector<string>& params);
-    void cmdQuit(Client* client, const vector<string>& params);
-    void cmdWho(Client* client, const vector<string>& params);
-    void cmdWhois(Client* client, const vector<string>& params);
-    
-    // Utility
-    vector<string> parseParams(const string& command);
-    void sendWelcome(Client* client);
-    void sendError(Client* client, const string& error);
+class Commands
+{
+	private:
+		Server* _server;
+	public:
+		Commands(Server* server);
+		~Commands();
+		void	processCommand(Client* client, const string& command);
+		// Authentication commands
+		void	cmdPass(Client* client, const vector<string>& params);
+		void	cmdNick(Client* client, const vector<string>& params);
+		void	cmdUser(Client* client, const vector<string>& params);
+		// Channel commands
+		void	cmdJoin(Client* client, const vector<string>& params);
+		void	cmdPart(Client* client, const vector<string>& params);
+		void	cmdTopic(Client* client, const vector<string>& params);
+		void	cmdNames(Client* client, const vector<string>& params);
+		void	cmdList(Client* client, const vector<string>& params);
+		// Communication commands
+		void	cmdPrivmsg(Client* client, const vector<string>& params);
+		void	cmdNotice(Client* client, const vector<string>& params);
+		// Channel operator commands
+		void	cmdKick(Client* client, const vector<string>& params);
+		void	cmdInvite(Client* client, const vector<string>& params);
+		void	cmdMode(Client* client, const vector<string>& params);
+		// Server commands
+		void	cmdPing(Client* client, const vector<string>& params);
+		void	cmdPong(Client* client, const vector<string>& params);
+		void	cmdQuit(Client* client, const vector<string>& params);
+		void	cmdWho(Client* client, const vector<string>& params);
+		void	cmdWhois(Client* client, const vector<string>& params);
+		// Utility
+		vector<string>	parseParams(const string& command);
+		void			sendWelcome(Client* client);
+		void			sendError(Client* client, const string& error);
 };
 
 #endif

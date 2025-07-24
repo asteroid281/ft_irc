@@ -1,6 +1,10 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <poll.h>
 #include <string>
 #include <vector>
 #include <set>

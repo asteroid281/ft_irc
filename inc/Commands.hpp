@@ -47,11 +47,10 @@ class Client;
 class Commands
 {
 	private:
-		Server* _server;
+		Server	*_server;
 	public:
 		Commands(Server* server);
 		~Commands();
-		void	processCommand(Client* client, const string& command);
 		// Authentication commands
 		void	cmdPass(Client* client, const vector<string>& params);
 		void	cmdNick(Client* client, const vector<string>& params);
@@ -76,7 +75,6 @@ class Commands
 		void	cmdWho(Client* client, const vector<string>& params);
 		void	cmdWhois(Client* client, const vector<string>& params);
 		// Utility
-		vector<string>	parseParams(const string& command);
 		void			sendWelcome(Client* client);
 		void			sendError(Client* client, const string& error);
 };

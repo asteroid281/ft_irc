@@ -137,6 +137,22 @@ bool	Channel::isEmpty() const
 	return (this->_clients.empty());
 }
 
+void	Channel::broadcast(const string& message, Client *sender)
+{
+	set<Client*>::iterator	it;
+
+	if (this->_clients.empty())
+		return ;
+	it = this->_clients.begin();
+	while (it != this->_clients.end())
+	{
+		if (*it != sender)
+			this->sendToClient((*it)->getFd(), message);
+		++it;
+	}
+}
+
+
 string	Channel::getClientList() const
 {
 	set<Client*>::iterator	it;

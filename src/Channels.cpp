@@ -1,10 +1,10 @@
 #include "Channel.hpp"
 
-// Set default values !!!
 Channel::Channel(const string& name)
-{}
+{
+	this->_name = name;
+}
 
-// Don't forget to check there is a pointer to be deleted !!!
 Channel::~Channel()
 {}
 
@@ -130,4 +130,19 @@ void	Channel::removeOperator(Client* client)
 bool	Channel::isOperator(Client* client) const
 {
 	return (client && this->_operators.find(client) != this->_operators.end());
+}
+
+bool	Channel::isEmpty() const
+{
+	return (this->_clients.empty());
+}
+
+string	Channel::getClientList() const
+{
+	set<Client*>::iterator	it;
+	string					list;
+
+	while (it != this->_clients.end())
+		list += string(it != this->_clients.begin(), " ") + (*it)->getNickname();
+	return (list);
 }

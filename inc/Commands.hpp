@@ -75,8 +75,8 @@ class Commands
 		void	cmdWho(Client* client, const vector<string>& params);
 		void	cmdWhois(Client* client, const vector<string>& params);
 		// Utility
-		void			sendWelcome(Client* client);
-		void			sendError(Client* client, const string& error);
+		void	sendWelcome(Client* client);
+		void	sendError(Client* client, const string& error);
 };
 
 #endif

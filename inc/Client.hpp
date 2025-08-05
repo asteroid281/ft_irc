@@ -9,8 +9,8 @@
 #include <vector>
 #include <set>
 
-using std::string;
-using std::set;
+using	std::string;
+using	std::set;
 
 class Channel;
 
@@ -29,7 +29,7 @@ class Client
 	public:
 		Client(int fd);
 		~Client();
-		// Getters	/ Done!
+		// Getters
 		bool	isRegistered() const;
 		bool	isAuthenticated() const;
 		int		getFd() const;

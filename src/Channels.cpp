@@ -152,7 +152,6 @@ void	Channel::broadcast(const string& message, Client *sender)
 	}
 }
 
-
 string	Channel::getClientList() const
 {
 	set<Client*>::iterator	it;

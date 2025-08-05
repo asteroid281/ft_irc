@@ -184,6 +184,7 @@ void	Channel::removeClient(int clientFd)
 					this->_fds.erase(v_it);
 					return ;
 				}
+				++v_it;
 			}
 		}
 		++s_it;

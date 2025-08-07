@@ -8,47 +8,47 @@ Client::Client(int fd)
 Client::~Client()
 {}
 
-bool	Client::isRegistered() const
+bool	Client::isRegistered(void) const
 {
 	return (this->_registered);
 }
 
-bool	Client::isAuthenticated() const
+bool	Client::isAuthenticated(void) const
 {
 	return (this->_authenticated);
 }
 
-int		Client::getFd() const
+int		Client::getFd(void) const
 {
 	return (this->_fd);
 }
 
-const string&	Client::getNickname() const
+const string&	Client::getNickname(void) const
 {
 	return (this->_nickname);
 }
 
-const string&	Client::getUsername() const
+const string&	Client::getUsername(void) const
 {
 	return (this->_username);
 }
 
-const string&	Client::getRealname() const
+const string&	Client::getRealname(void) const
 {
 	return (this->_realname);
 }
 
-const string&	Client::getHostname() const
+const string&	Client::getHostname(void) const
 {
 	return (this->_hostname);
 }
 
-const string&	Client::getBuffer() const
+const string&	Client::getBuffer(void) const
 {
 	return (this->_buffer);
 }
 
-const std::set<string>&	Client::getChannels() const
+const std::set<string>&	Client::getChannels(void) const
 {
 	return (this->_channels);
 }
@@ -83,7 +83,7 @@ void	Client::setRegistered(bool reg)
 	this->_registered = reg;
 }
 
-string	Client::extractMessage()
+string	Client::extractMessage(void)
 {
 	string	message;
 	size_t	pos;
@@ -101,7 +101,7 @@ void	Client::appendToBuffer(const string& data)
 	this->_buffer += data;
 }
 
-void	Client::clearBuffer()
+void	Client::clearBuffer(void)
 {
 	this->_buffer.clear();
 }
@@ -121,12 +121,12 @@ bool	Client::isInChannel(const string& channelName) const
 	return (this->_channels.find(channelName) != this->_channels.end());
 }
 
-string	Client::getPrefix() const
+string	Client::getPrefix(void) const
 {
 	return (string(":" + this->_nickname + "!" + this->getFullName()));
 }
 
-string	Client::getFullName() const
+string	Client::getFullName(void) const
 {
 	return (this->_username + "@" + this->_hostname);
 }

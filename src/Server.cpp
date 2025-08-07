@@ -11,22 +11,22 @@ Server::Server(int port, const string& password)
 Server::~Server()
 {}
 
-const string&	Server::getPassword() const
+const string&	Server::getPassword(void) const
 {
 	return (this->_password);
 }
 
-const string&	Server::getServerName() const
+const string&	Server::getServerName(void) const
 {
 	return (this->_serverName);
 }
 
-const string&	Server::getVersion() const
+const string&	Server::getVersion(void) const
 {
 	return (this->_version);
 }
 
-const string&	Server::getCreationDate() const
+const string&	Server::getCreationDate(void) const
 {
 	return (this->_creationDate);
 }
@@ -127,7 +127,7 @@ void	Server::sendToClient(int fd, const string& message)
 	}
 }
 
-vector<string>	Server::getChannelList()
+vector<string>	Server::getChannelList(void)
 {
 	map<string, Channel*>::iterator	it;
 	vector<string>					channelList;
@@ -139,6 +139,79 @@ vector<string>	Server::getChannelList()
 		++it;
 	}
 	return (channelList);
+}
+
+void	Server::setupSocket(void)
+{
+	struct sockaddr_in	serverAddr;
+	struct pollfd		serverPollFd;
+    int					opt;
+
+    this->_serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+    if (this->_serverSocket == -1)
+        throw	runtime_error("Server Socket Error.");
+	opt = 1;
+    if (setsockopt(this->_serverSocket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
+    {
+        close(this->_serverSocket);
+        throw	runtime_error("Server Socket Options Error.");
+    }
+    if (fcntl(this->_serverSocket, F_SETFL, O_NONBLOCK) == -1)
+    {
+        close(this->_serverSocket);
+        throw	runtime_error("Server Socket Non-blocking Error.");
+    }
+    serverAddr = (struct sockaddr_in){0};
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = INADDR_ANY;
+    serverAddr.sin_port = htons(this->_port);
+    if (bind(this->_serverSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1)
+    {
+        close(this->_serverSocket);
+        throw	runtime_error("Server Socket Bind Error.");
+    }
+    if (listen(this->_serverSocket, MAX_CLIENTS) == -1)
+    {
+        close(this->_serverSocket);
+        throw	runtime_error("Server Socket Listen Error.");
+    }
+    serverPollFd.fd = this->_serverSocket;
+    serverPollFd.events = POLLIN;
+    serverPollFd.revents = 0;
+    this->_fds.push_back(serverPollFd);
+    cout << "The server started listening on port " << this->_port << endl;
+}
+
+void	Server::acceptNewClient(void)
+{
+    struct sockaddr_in	clientAddr;
+    socklen_t			clientLen;
+    Client*				newClient;
+    struct pollfd		clientPollFd;
+    int					clientSocket;
+
+    clientLen = sizeof(clientAddr);
+    clientSocket = accept(this->_serverSocket, (struct sockaddr*) &clientAddr, &clientLen);
+    if (clientSocket == -1)
+    {
+        if (errno == EAGAIN || errno == EWOULDBLOCK)
+            return ;
+        perror("Client Accept Error");
+        return ;
+    }
+    if (fcntl(clientSocket, F_SETFL, O_NONBLOCK) == -1)
+    {
+        perror("Client Socket Non-blocking Error");
+        close(clientSocket);
+        return ;
+    }
+    newClient = new Client(clientSocket);
+    this->_clients[clientSocket] = newClient;
+    clientPollFd.fd = clientSocket;
+    clientPollFd.events = POLLIN;
+    clientPollFd.revents = 0;
+    this->_fds.push_back(clientPollFd);
+    cout << "New client connected." << endl;
 }
 
 void	Server::handleClientMessage(int clientFd)

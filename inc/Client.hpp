@@ -1,20 +1,20 @@
 #ifndef CLIENT_HPP
-#define CLIENT_HPP
+# define CLIENT_HPP
 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <unistd.h>
-#include <poll.h>
-#include <string>
-#include <vector>
-#include <set>
+# include <sys/socket.h>
+# include <netinet/in.h>
+# include <unistd.h>
+# include <poll.h>
+# include <string>
+# include <vector>
+# include <set>
 
 using	std::string;
 using	std::set;
 
-class Channel;
+class	Channel;
 
-class Client
+class	Client
 {
 	private:
 		int			_fd;
@@ -30,15 +30,15 @@ class Client
 		Client(int fd);
 		~Client();
 		// Getters
-		bool	isRegistered() const;
-		bool	isAuthenticated() const;
-		int		getFd() const;
-		const string&	getNickname() const;
-		const string&	getUsername() const;
-		const string&	getRealname() const;
-		const string&	getHostname() const;
-		const string&	getBuffer() const;
-		const std::set<string>&	getChannels() const;
+		bool	isRegistered(void) const;
+		bool	isAuthenticated(void) const;
+		int		getFd(void) const;
+		const string&	getNickname(void) const;
+		const string&	getUsername(void) const;
+		const string&	getRealname(void) const;
+		const string&	getHostname(void) const;
+		const string&	getBuffer(void) const;
+		const std::set<string>&	getChannels(void) const;
 		// Setters
 		void	setNickname(const string& nickname);
 		void	setUsername(const string& username);
@@ -47,16 +47,16 @@ class Client
 		void	setAuthenticated(bool auth);
 		void	setRegistered(bool reg);
 		// Buffer management
-		string	extractMessage();
+		string	extractMessage(void);
 		void	appendToBuffer(const string& data);
-		void	clearBuffer();
+		void	clearBuffer(void);
 		// Channel management
 		void	joinChannel(const string& channelName);
 		void	leaveChannel(const string& channelName);
 		bool	isInChannel(const string& channelName) const;
 		// Utility
-		string	getPrefix() const;
-		string	getFullName() const;
+		string	getPrefix(void) const;
+		string	getFullName(void) const;
 };
 
 #endif

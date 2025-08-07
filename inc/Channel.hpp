@@ -1,16 +1,16 @@
 #ifndef CHANNEL_HPP
-#define CHANNEL_HPP
+# define CHANNEL_HPP
 
-#include <string>
-#include <set>
-#include <map>
+# include <string>
+# include <set>
+# include <map>
 
 using	std::string;
 using	std::set;
 
-class Client;
+class	Client;
 
-class Channel
+class	Channel
 {
 	private:
 		set<Client*>	_clients;
@@ -27,17 +27,17 @@ class Channel
 	public:
 		Channel(const string& name);
 		~Channel();
-		// Getters	/ Done!
-		size_t	getClientCount() const;
-		bool	isInviteOnly() const;
-		bool	isTopicRestricted() const;
-		bool	hasPassword() const;
-		int		getUserLimit() const;
-		const string&	getName() const;
-		const string&	getTopic() const;
-		const string&	getPassword() const;
-		const set<Client*>&	getClients() const;
-		const set<Client*>&	getOperators() const;
+		// Getters
+		size_t	getClientCount(void) const;
+		bool	isInviteOnly(void) const;
+		bool	isTopicRestricted(void) const;
+		bool	hasPassword(void) const;
+		int		getUserLimit(void) const;
+		const string&	getName(void) const;
+		const string&	getTopic(void) const;
+		const string&	getPassword(void) const;
+		const set<Client*>&	getClients(void) const;
+		const set<Client*>&	getOperators(void) const;
 		// Setters
 		void	setTopic(const string& topic);
 		void	setPassword(const string& password);
@@ -60,9 +60,9 @@ class Channel
 		// Broadcasting
 		void	broadcast(const string& message, Client* sender = NULL);
 		// Utility
-		string	getModeString() const;
-		string	getClientList() const;
-		bool	isEmpty() const;
+		string	getModeString(void) const;
+		string	getClientList(void) const;
+		bool	isEmpty(void) const;
 		bool	canJoin(Client* client, const string& password = "") const;
 };
 

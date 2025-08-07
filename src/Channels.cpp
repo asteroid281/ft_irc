@@ -8,52 +8,52 @@ Channel::Channel(const string& name)
 Channel::~Channel()
 {}
 
-size_t	Channel::getClientCount() const
+size_t	Channel::getClientCount(void) const
 {
 	return (this->_clients.size());
 }
 
-bool	Channel::isInviteOnly() const
+bool	Channel::isInviteOnly(void) const
 {
 	return (this->_inviteOnly);
 }
 
-bool	Channel::isTopicRestricted() const
+bool	Channel::isTopicRestricted(void) const
 {
 	return (this->_topicRestricted);
 }
 
-bool	Channel::hasPassword() const
+bool	Channel::hasPassword(void) const
 {
 	return (this->_hasPassword);
 }
 
-int		Channel::getUserLimit() const
+int		Channel::getUserLimit(void) const
 {
 	return (this->_userLimit);
 }
 
-const string&	Channel::getName() const
+const string&	Channel::getName(void) const
 {
 	return (this->_name);
 }
 
-const string&	Channel::getTopic() const
+const string&	Channel::getTopic(void) const
 {
 	return (this->_topic);
 }
 
-const string&	Channel::getPassword() const
+const string&	Channel::getPassword(void) const
 {
 	return (this->_password);
 }
 
-const set<Client*>&	Channel::getClients() const
+const set<Client*>&	Channel::getClients(void) const
 {
 	return (this->_clients);
 }
 
-const set<Client*>&	Channel::getOperators() const
+const set<Client*>&	Channel::getOperators(void) const
 {
 	return (this->_operators);
 }
@@ -132,7 +132,7 @@ bool	Channel::isOperator(Client* client) const
 	return (client && this->_operators.find(client) != this->_operators.end());
 }
 
-bool	Channel::isEmpty() const
+bool	Channel::isEmpty(void) const
 {
 	return (this->_clients.empty());
 }
@@ -152,7 +152,7 @@ void	Channel::broadcast(const string& message, Client *sender)
 	}
 }
 
-string	Channel::getClientList() const
+string	Channel::getClientList(void) const
 {
 	set<Client*>::iterator	it;
 	string					list;

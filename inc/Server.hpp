@@ -1,29 +1,30 @@
 #ifndef SERVER_HPP
-#define SERVER_HPP
+# define SERVER_HPP
 
-#include "Client.hpp"
-#include "Channel.hpp"
-#include <iostream>
-#include <vector>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <poll.h>
-#include <csignal>
-#include <cstring>
+# include "Client.hpp"
+# include "Channel.hpp"
+# include <iostream>
+# include <vector>
+# include <sys/socket.h>
+# include <netinet/in.h>
+# include <arpa/inet.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <poll.h>
+# include <csignal>
+# include <cstring>
 
-#define MAX_CLIENTS 100
-#define BUFFER_SIZE 512
+# define MAX_CLIENTS 100
+# define BUFFER_SIZE 512
 
-using std::vector;
-using std::map;
+using	std::vector;
+using	std::map;
+using	std::runtime_error;
 
-class Client;
-class Channel;
+class	Client;
+class	Channel;
 
-class Server
+class	Server
 {
 	private:
 		vector<struct pollfd>	_fds;
@@ -36,21 +37,21 @@ class Server
 		bool	_running;
 		int		_port;
 		int		_serverSocket;
-		void	setupSocket();
-		void	acceptNewClient();
+		void	setupSocket(void);
+		void	acceptNewClient(void);
 		void	handleClientMessage(int clientFd);
 		void	removeClient(int clientFd);
 		void	processCommand(Client* client, const string& message);
 	public:
 		Server(int port, const string& password);
 		~Server();
-		void			start();
-		void			stop();
+		void			start(void);
+		void			stop(void);
 		// Getters
-		const string&	getPassword() const;
-		const string&	getServerName() const;
-		const string&	getVersion() const;
-		const string&	getCreationDate() const;
+		const string&	getPassword(void) const;
+		const string&	getServerName(void) const;
+		const string&	getVersion(void) const;
+		const string&	getCreationDate(void) const;
 		// Client management
 		Client*			getClient(int fd);
 		Client*			getClientByNick(const string& nickname);
@@ -64,7 +65,7 @@ class Server
 		void			sendToClient(int fd, const string& message);
 		// Utility
 		bool			isValidNickname(const string& nickname);
-		vector<string>	getChannelList();
+		vector<string>	getChannelList(void);
 };
 
 #endif

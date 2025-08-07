@@ -37,8 +37,8 @@ class	Server
 		bool	_running;
 		int		_port;
 		int		_serverSocket;
-		void	setupSocket(void);
-		void	acceptNewClient(void);
+		bool	setupSocket(void);
+		bool	acceptNewClient(void);
 		void	handleClientMessage(int clientFd);
 		void	removeClient(int clientFd);
 		void	processCommand(Client* client, const string& message);

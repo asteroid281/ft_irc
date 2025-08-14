@@ -167,7 +167,7 @@ string	Channel::getClientList(void) const
 	return (list);
 }
 
-bool	canJoin(Client* client, const string& password = "") const
+bool	Channel::canJoin(Client* client, const string& password = "") const
 {
 	if (this->hasClient(client))
 		return (false);

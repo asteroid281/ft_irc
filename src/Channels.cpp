@@ -58,6 +58,11 @@ const set<Client*>&	Channel::getOperators(void) const
 	return (this->_operators);
 }
 
+const set<Client*>&	Channel::getBanned(void) const
+{
+	return (this->_banned);
+}
+
 void	Channel::setTopic(const string& topic)
 {
 	this->_topic = topic;
@@ -160,4 +165,14 @@ string	Channel::getClientList(void) const
 	while (it != this->_clients.end())
 		list += string(it != this->_clients.begin(), " ") + (*it)->getNickname();
 	return (list);
+}
+
+bool	canJoin(Client* client, const string& password = "") const
+{
+	if (this->hasClient(client))
+		return (false);
+	if (this->_clients.size() == this->_userLimit)
+		return (false);
+	if (!this->_password.empty() && this->_password != password)
+		return (false);
 }
